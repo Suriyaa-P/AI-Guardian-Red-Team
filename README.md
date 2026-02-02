@@ -74,7 +74,7 @@ The dashboard provides a live stream of the "Attack."
 
 1. **Setup Environment**:
 ```bash
-pip install flask autogen-agentchat autogen-ext playwright
+pip install -r requirements.txt
 playwright install chromium
 
 ```
