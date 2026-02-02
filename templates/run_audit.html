@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Guardian | Live Audit Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { font-size: 16px; }
+        body { 
+            background-color: #050505; 
+            color: rgba(255, 255, 255, 0.6); 
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+        h4 { font-size: 1.5625rem; line-height: 130%; color: #fff; letter-spacing: 0.02em; }
+        .console-text { font-family: 'JetBrains Mono', monospace; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .status-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+        @keyframes scan { 0% { left: -100%; } 100% { left: 150%; } }
+    </style>
+</head>
+<body class="p-8">
+
+    <header class="max-w-7xl mx-auto flex justify-between items-center mb-16">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(139,92,246,0.5)]">G</div>
+            <h4 class="font-bold tracking-tighter">AI-GUARDIAN <span class="text-xs font-light text-zinc-500 uppercase tracking-widest ml-2">Audit v1.0</span></h4>
+        </div>
+        <div class="flex gap-4">
+            <div class="glass-card px-4 py-2 rounded-md text-xs flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full status-pulse"></span>
+                SYSTEM READY
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+        <div class="col-span-12 lg:col-span-4 space-y-8">
+            <section class="glass-card p-8 rounded-2xl">
+                <h4 class="mb-4 text-white">Orchestrator Control</h4>
+                <p class="mb-8 text-sm">Targeting the whole website architecture. The "Digital Ghost" is ready to probe.</p>
+                
+                <div class="space-y-4 mb-8">
+                    <label class="block text-[10px] uppercase tracking-widest font-bold text-zinc-500">Target URL</label>
+                    <input type="text" value="http://localhost:8501" class="w-full bg-white/5 border border-white/10 p-4 rounded-lg text-white font-mono text-sm focus:outline-none focus:border-violet-500 transition">
+                </div>
+
+                <button id="run-audit-btn" onclick="startAuditFlow()" class="relative group w-full py-4 bg-violet-600 overflow-hidden text-white font-bold rounded-xl transition-all hover:bg-violet-500 shadow-[0_0_20px_rgba(139,92,246,0.3)] active:scale-95">
+                    <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white/20 opacity-40 group-hover:animate-[scan_2s_infinite]"></div>
+                    <span class="relative z-10">EXECUTE ADVERSARIAL LOOP</span>
+                </button>
+                
+                <a id="download-report-btn" href="/download-report" class="hidden mt-4 block text-center w-full py-3 border border-green-500/50 text-green-400 rounded-xl text-sm font-bold hover:bg-green-500/10 transition">
+                    DOWNLOAD SECURITY_REPORT.MD
+                </a>
+            </section>
+
+            <section class="glass-card p-6 rounded-2xl space-y-4">
+                <div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-zinc-400">
+                    <span>Active Agents</span>
+                    <span class="text-violet-400">02</span>
+                </div>
+                <div class="flex gap-2">
+                    <div class="px-3 py-1 bg-white/5 rounded text-[10px] text-white">ATTACKER_GPT4O</div>
+                    <div class="px-3 py-1 bg-white/5 rounded text-[10px] text-white">AUDITOR_GPT4O</div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-span-12 lg:col-span-8 space-y-8">
+            <div class="bg-black border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                <div class="bg-white/5 px-6 py-3 border-b border-white/10 flex justify-between items-center">
+                    <span class="console-text text-[10px] uppercase tracking-widest font-bold text-zinc-400">Live Attack Stream</span>
+                </div>
+                <div id="console-output" class="p-8 h-[400px] overflow-y-auto console-text text-sm space-y-2 text-zinc-400 bg-[#080808]">
+                    <div class="text-zinc-600 italic">// Awaiting execution command...</div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-sm uppercase tracking-widest font-bold text-zinc-500">Visual Proof (SaaS PoC)</h4>
+                <div class="grid grid-cols-2 gap-4" id="screenshot-grid">
+                    <div class="aspect-video bg-white/5 border border-dashed border-white/10 rounded-xl flex items-center justify-center text-[10px] uppercase tracking-widest text-zinc-600">Awaiting Capture...</div>
+                    <div class="aspect-video bg-white/5 border border-dashed border-white/10 rounded-xl flex items-center justify-center text-[10px] uppercase tracking-widest text-zinc-600">Awaiting Capture...</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const consoleOutput = document.getElementById('console-output');
+        const screenshotGrid = document.getElementById('screenshot-grid');
+        const auditBtn = document.getElementById('run-audit-btn');
+        const downloadBtn = document.getElementById('download-report-btn');
+
+        function appendLog(text, type = 'info') {
+            const entry = document.createElement('div');
+            const timestamp = new Date().toLocaleTimeString([], { hour12: false });
+            let colorClass = 'text-zinc-500';
+            if(type === 'atk') colorClass = 'text-violet-400 font-bold';
+            if(type === 'aud') colorClass = 'text-fuchsia-400 font-bold';
+            if(type === 'err') colorClass = 'text-red-500 font-black';
+            if(type === 'succ') colorClass = 'text-green-400';
+
+            entry.className = `console-text text-[13px] border-l-2 border-white/5 pl-3 py-0.5 ${colorClass}`;
+            entry.innerHTML = `<span class="opacity-20 mr-2">${timestamp}</span> ${text}`;
+            consoleOutput.appendChild(entry);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        async function loadLatestScreenshots() {
+            try {
+                const response = await fetch('/get-latest-screenshots');
+                const images = await response.json();
+                if(images.length > 0) {
+                    screenshotGrid.innerHTML = "";
+                    images.forEach(img => {
+                        const card = document.createElement('div');
+                        card.className = "aspect-video bg-black rounded-xl overflow-hidden border border-violet-500/30 relative group animate-in zoom-in duration-500";
+                        card.innerHTML = `<img src="${img}" class="w-full h-full object-cover">`;
+                        screenshotGrid.appendChild(card);
+                    });
+                }
+            } catch (e) { console.error("Img Load Error", e); }
+        }
+
+        async function startAuditFlow() {
+            auditBtn.disabled = true;
+            auditBtn.innerText = "ATTACK IN PROGRESS...";
+            consoleOutput.innerHTML = "";
+            appendLog("INITIALIZING MULTI-AGENT HANDSHAKE...", "info");
+
+            try {
+                const response = await fetch('/run-audit', { method: 'POST' });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    appendLog("AUDIT CYCLE COMPLETE. GENERATING MD REPORT.", "succ");
+                    await loadLatestScreenshots();
+                    if(downloadBtn) downloadBtn.classList.remove('hidden');
+                } else {
+                    appendLog("SYSTEM ERROR: " + result.message, "err");
+                }
+            } catch (error) {
+                appendLog("CRITICAL: Check if app.py is running.", "err");
+            } finally {
+                auditBtn.disabled = false;
+                auditBtn.innerText = "EXECUTE ADVERSARIAL LOOP";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Guardian | Automated Red-Teaming Loop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { font-size: 16px; }
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0c; color: #e4e4e7; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+        h1 { font-size: 3.052rem; line-height: 1; margin-bottom: 2rem; }
+        h2 { font-size: 2.441rem; line-height: 1.1; color: #ffffff; }
+        p { font-size: 1rem; line-height: 1.5; color: #a1a1aa; }
+        .accent-glow { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+        .grid-bg { background-image: radial-gradient(#1e1e26 1px, transparent 1px); background-size: 32px 32px; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="grid-bg">
+
+    <nav class="fixed top-0 w-full z-50 glass py-4 px-8 flex justify-between items-center">
+        <div class="text-xl font-bold tracking-tighter text-white">AI-GUARDIAN<span class="text-violet-500">.</span></div>
+        <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-semibold">
+            <a href="#brain" class="hover:text-violet-400 transition">The Brain</a>
+            <a href="#hands" class="hover:text-violet-400 transition">The Hands</a>
+            <a href="#proof" class="hover:text-violet-400 transition">The Proof</a>
+        </div>
+        <a href="/dashboard" class="bg-violet-600 hover:bg-violet-700 text-white px-6 py-2 rounded-full text-sm font-bold transition accent-glow">
+            START LIVE AUDIT
+        </a>
+    </nav>
+
+    <section class="min-h-screen flex flex-col justify-center items-center px-4 pt-20 text-center">
+        <div class="inline-block px-4 py-1 border border-violet-500/30 rounded-full text-xs font-bold text-violet-400 mb-6 uppercase tracking-widest">
+            Autonomous Red-Teaming v1.0
+        </div>
+        <h1 class="max-w-4xl mx-auto font-bold tracking-tight text-white">
+            The Digital Ghost that <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">Exposes AI Vulnerabilities.</span>
+        </h1>
+        <p class="max-w-2xl mx-auto mb-10 text-lg">
+            An automated loop that combines multi-agent logic with real browser automation to find what standard security scanners miss.
+        </p>
+        <div class="flex gap-4">
+            <button class="bg-white text-black px-8 py-4 rounded-lg font-bold hover:bg-gray-200 transition">Get Security Report</button>
+            <a href="/dashboard" class="glass px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition">Run Live PoC</a>
+        </div>
+    </section>
+
+    <section id="brain" class="py-32 px-8 max-w-7xl mx-auto grid md:grid-cols-12 gap-8">
+        <div class="md:col-span-6 space-y-8">
+            <h2 class="font-bold">The Multi-Agent Brain</h2>
+            <div class="space-y-6">
+                <div class="glass p-8 rounded-2xl border-l-4 border-violet-500">
+                    <h4 class="text-white mb-2">Red-Team Attacker</h4>
+                    <p>Generates sophisticated jailbreaks, social engineering, and obfuscation payloads.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-l-4 border-fuchsia-500">
+                    <h4 class="text-white mb-2">Blue-Team Auditor</h4>
+                    <p>Evaluates responses in real-time, scoring risk levels and detecting data leaks.</p>
+                </div>
+            </div>
+        </div>
+        <div class="md:col-span-6 bg-black/40 rounded-3xl p-4 border border-white/5 relative overflow-hidden">
+            <div class="bg-zinc-900 rounded-xl p-6 font-mono text-sm space-y-2 h-full">
+                <div class="text-zinc-500 uppercase text-[10px] mb-4">Live Orchestrator Stream</div>
+                <div class="text-green-400">[SYSTEM] Starting Audit...</div>
+                <div class="text-blue-400">[ATTACKER] Deploying Jailbreak...</div>
+                <div class="text-red-500 font-bold">[ALERT] Potential Leak Detected</div>
+                <div class="animate-pulse inline-block w-2 h-4 bg-white translate-y-1"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proof" class="py-32 px-8 bg-zinc-950">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="mb-4">Visual Evidence of Breach</h2>
+            <p>Deniable proof via automated Playwright screenshots.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <img src="https://via.placeholder.com/600x400/1a1a1a/8b5cf6?text=Evidence+01" class="rounded-xl border border-white/10">
+            <img src="https://via.placeholder.com/600x400/1a1a1a/8b5cf6?text=Evidence+02" class="rounded-xl border border-white/10">
+            <img src="https://via.placeholder.com/600x400/1a1a1a/8b5cf6?text=Evidence+03" class="rounded-xl border border-white/10">
+        </div>
+    </section>
+
+    <footer class="py-20 text-center border-t border-white/5">
+        <h3 class="mb-8 text-white">Ready to secure your AI deployment?</h3>
+        <a href="/dashboard" class="bg-violet-600 hover:bg-violet-700 text-white px-10 py-4 rounded-full font-bold transition accent-glow">
+            ENTER COMMAND CENTER
+        </a>
+    </footer>
+
+</body>
+</html>
